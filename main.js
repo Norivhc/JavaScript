@@ -1,4 +1,4 @@
-// Variables globales
+/* // Variables globales
 let perfumes = [];
 
 // Funciones
@@ -103,4 +103,169 @@ mostrarMensaje("Perfumes caros:");
 
 perfumesCaros.forEach(function (perfume, index) {
   mostrarMensaje(`${index + 1}. ${perfume.nombre} (ARS${perfume.precio})`);
+}); */
+
+//PRODUCTOS
+const productos = [
+  {
+    id: "perfume-01",
+    nombre: "Athenea x100ml",
+    precio: 9000,
+    img: "./img/m-athenea.jpg",
+    categoria: {
+      nombre: "Perfume de mujer",
+      id: "mujeres",
+    },
+  },
+  {
+    id: "perfume-02",
+    nombre: "Le Secret x100ml",
+    precio: 5600,
+    img: "./img/m-le-secret.jpg",
+    categoria: {
+      nombre: "Perfume de mujer",
+      id: "mujeres",
+    },
+  },
+  {
+    id: "perfume-03",
+    nombre: "Life is Bella x100ml",
+    precio: 7000,
+    img: "./img/m-life-is-bella.jpg",
+    categoria: {
+      nombre: "Perfume de mujer",
+      id: "mujeres",
+    },
+  },
+  {
+    id: "perfume-04",
+    nombre: "Black Label x100ml",
+    precio: 39000,
+    img: "./img/h-black-label.jpg",
+    categoria: {
+      nombre: "Perfume de hombre",
+      id: "hombres",
+    },
+  },
+  {
+    id: "perfume-05",
+    nombre: "Code x100ml",
+    precio: 8000,
+    img: "./img/h-code.jpeg",
+    categoria: {
+      nombre: "Perfume de hombre",
+      id: "hombres",
+    },
+  },
+  {
+    id: "perfume-06",
+    nombre: "Millonaire x100ml",
+    precio: 12000,
+    img: "./img/h-millonaire.jpg",
+    categoria: {
+      nombre: "Perfume de hombre",
+      id: "hombres",
+    },
+  },
+];
+
+const contenedorProductos = document.querySelector("#contenedor-productos");
+const botonesCategorias = document.querySelectorAll(".boton-categoria");
+const tituloPrincipal = document.querySelector("#titulo-principal");
+let botonesAgregar = document.querySelectorAll(".product-add");
+const numerito = document.querySelector("#numerito")
+
+
+function cargarProductos(productosElegidos) {
+
+  contenedorProductos.innerHTML = "";
+
+  productosElegidos.forEach(producto => {
+
+    const div = document.createElement("div");
+    div.classList.add("producto");
+    div.innerHTML = `
+    <img class="product-img" src="${producto.img}" alt="${producto.nombre}" />
+    <div class="product-details">
+      <h3 class="product-title">${producto.nombre}</h3>
+      <p class="product-precio">$${producto.precio}</p>
+      <button class="product-add" id ="${producto.id}">Agregar</button>
+    </div>
+    `;
+
+    contenedorProductos.append(div);
+  });
+
+  actualizarBotonesAgregar();
+}
+
+cargarProductos(productos);
+
+botonesCategorias.forEach (boton => {
+  boton.addEventListener("click", (e) =>{
+
+    botonesCategorias.forEach(boton => boton.classList.remove("active"))
+    e.currentTarget.classList.add("active");
+
+    if (e.currentTarget.id != "todos"){
+      const productoCategoria = productos.find(producto => producto.categoria.id === e.currentTarget.id);
+
+      tituloPrincipal.innerHTML = productoCategoria.categoria.nombre;
+
+      const productosBoton = productos.filter(producto => producto.categoria.id === e.currentTarget.id)
+      cargarProductos(productosBoton);
+
+    } else {
+      tituloPrincipal.innerHTML = "Todos los productos";
+      cargarProductos(productos)
+    }
+
+
+  })
 });
+
+function actualizarBotonesAgregar() {
+  botonesAgregar = document.querySelectorAll(".product-add");
+
+  botonesAgregar.forEach(boton => {
+    boton.addEventListener("click", agregarAlCarrito)
+  });
+}
+
+let productosEnCarrito;
+
+let productosEnCarritoLS = localStorage.getItem("productos-en-carrito")
+
+
+if (productosEnCarritoLS){
+  productosEnCarrito = JSON.parse(productosEnCarritoLS);
+  actualizarNumerito();
+} else {
+  productosEnCarrito = [];
+}
+
+
+
+function agregarAlCarrito(e) {
+  const idBoton = e.currentTarget.id;
+  const productoAgregado = productos.find (producto => producto.id === idBoton);
+
+  if(productosEnCarrito.some(producto => producto.id === idBoton)) {
+    const index = productosEnCarrito.findIndex(producto => producto.id === idBoton)
+    productosEnCarrito[index].cantidad++;
+  } else {
+    productoAgregado.cantidad = 1;
+    productosEnCarrito.push(productoAgregado);
+
+  }
+  actualizarNumerito();
+
+
+  localStorage.setItem("productos-en-carrito", JSON.stringify(productosEnCarrito))
+
+}
+
+function actualizarNumerito(){
+  let nuevoNumerito = productosEnCarrito.reduce((acc, producto) => acc + producto.cantidad,0)
+  numerito.innerText = nuevoNumerito;
+}
