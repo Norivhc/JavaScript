@@ -268,6 +268,10 @@ main {
   display: none;
 }
 
+.close-menu {
+  display: none;
+}
+
 .disabled {
   display: none;
 }
@@ -277,8 +281,9 @@ main {
 
 @media screen and (max-width:600px) {
   .wrapper {
-    grid-template-columns: 1fr;
-    
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
   }
   main {
     margin: 1rem;
@@ -292,7 +297,16 @@ main {
     background-color: var(--clr-main);
     left: 0;
     box-shadow: 0 0 0 100vmax rgba(0, 0, 0, .75);
-    display: none;
+   transform: translateX(-100%);
+   opacity: 0;
+   visibility: hidden;
+   transition: .2s;
+  }
+
+  .aside-visible {
+    transform: translateX(0);
+    opacity: 1;
+    visibility: visible;
   }
 
   .cont-prod {
@@ -302,5 +316,41 @@ main {
     display: flex;
     padding: 1rem;
     justify-content: space-between;
+    align-items: center;
+  }
+
+  .header-mobile .logo {
+    color: var(--clr-beige);
+  }
+
+  .open-menu, .close-menu {
+    background-color: transparent;
+    color: var(--clr-beige);
+    border: 0;
+    font-size: 2rem;
+    cursor: pointer;
+  }
+  .close-menu {
+    display: block;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+  }
+
+  .carrito-producto {
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    padding: .5rem;
+
+  }
+
+  .carrito-producto-subtotal {
+    display: none;
+  }
+
+  .carrito-acciones {
+    flex-wrap: wrap;
+    row-gap: 1rem;
   }
 }
