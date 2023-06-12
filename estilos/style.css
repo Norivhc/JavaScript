@@ -264,6 +264,43 @@ main {
   border-bottom-right-radius: 1rem;
 }
 
+.header-mobile {
+  display: none;
+}
+
 .disabled {
   display: none;
+}
+
+
+/*** MEDIA QUERIES ***/
+
+@media screen and (max-width:600px) {
+  .wrapper {
+    grid-template-columns: 1fr;
+    
+  }
+  main {
+    margin: 1rem;
+    padding: 2rem;
+    margin-top: 0;
+  }
+
+  aside {
+    position: fixed;
+    z-index: 9;
+    background-color: var(--clr-main);
+    left: 0;
+    box-shadow: 0 0 0 100vmax rgba(0, 0, 0, .75);
+    display: none;
+  }
+
+  .cont-prod {
+    grid-template-columns: 1fr 1fr;
+  }
+  .header-mobile {
+    display: flex;
+    padding: 1rem;
+    justify-content: space-between;
+  }
 }
