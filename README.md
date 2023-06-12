@@ -1,3 +1,3 @@
 # Curso de JavaScript
 e-commerce
-https://norivhc.github.io/JavaScript/
+https://norivhc.github.io/Eso-que-buscas/
