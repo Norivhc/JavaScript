@@ -131,3 +131,22 @@ function comprarCarrito() {
   contenedorCarritoComprado.classList.remove("disabled")
 
 }
+const formulario = document.querySelector("#miFormulario");
+const datosMostrados = document.querySelector("#datosMostrados");
+
+formulario.addEventListener("submit", function(e) {
+  e.preventDefault(); // Evita que el formulario se envíe y la página se recargue
+
+  // Obtener los valores del formulario
+  const nombre = document.querySelector("#nombre").value;
+  const email = document.querySelector("#email").value;
+
+  // Mostrar los datos capturados
+  datosMostrados.innerHTML = `
+    <p>Nombre: ${nombre}</p>
+    <p>Email: ${email}</p>
+  `;
+
+  // Restablecer el formulario
+  formulario.reset();
+});
