@@ -105,69 +105,14 @@ perfumesCaros.forEach(function (perfume, index) {
   mostrarMensaje(`${index + 1}. ${perfume.nombre} (ARS${perfume.precio})`);
 }); */
 
-//PRODUCTOS
-const productos = [
-  {
-    id: "perfume-01",
-    nombre: "Athenea x100ml",
-    precio: 9000,
-    img: "./img/m-athenea.jpg",
-    categoria: {
-      nombre: "Perfume de mujer",
-      id: "mujeres",
-    },
-  },
-  {
-    id: "perfume-02",
-    nombre: "Le Secret x100ml",
-    precio: 5600,
-    img: "./img/m-le-secret.jpg",
-    categoria: {
-      nombre: "Perfume de mujer",
-      id: "mujeres",
-    },
-  },
-  {
-    id: "perfume-03",
-    nombre: "Life is Bella x100ml",
-    precio: 7000,
-    img: "./img/m-life-is-bella.jpg",
-    categoria: {
-      nombre: "Perfume de mujer",
-      id: "mujeres",
-    },
-  },
-  {
-    id: "perfume-04",
-    nombre: "Black Label x100ml",
-    precio: 39000,
-    img: "./img/h-black-label.jpg",
-    categoria: {
-      nombre: "Perfume de hombre",
-      id: "hombres",
-    },
-  },
-  {
-    id: "perfume-05",
-    nombre: "Code x100ml",
-    precio: 8000,
-    img: "./img/h-code.jpeg",
-    categoria: {
-      nombre: "Perfume de hombre",
-      id: "hombres",
-    },
-  },
-  {
-    id: "perfume-06",
-    nombre: "Millonaire x100ml",
-    precio: 12000,
-    img: "./img/h-millonaire.jpg",
-    categoria: {
-      nombre: "Perfume de hombre",
-      id: "hombres",
-    },
-  },
-];
+let productos = [];
+
+fetch("./js/productos.JSON")
+  .then(response => response.json())
+  .then(data => {
+    productos = data
+    cargarProductos(productos);
+  })
 
 const contenedorProductos = document.querySelector("#contenedor-productos");
 const botonesCategorias = document.querySelectorAll(".boton-categoria");
@@ -199,7 +144,6 @@ function cargarProductos(productosElegidos) {
   actualizarBotonesAgregar();
 }
 
-cargarProductos(productos);
 
 botonesCategorias.forEach (boton => {
   boton.addEventListener("click", (e) =>{
