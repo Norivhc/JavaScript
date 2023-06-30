@@ -150,3 +150,4 @@ formulario.addEventListener("submit", function(e) {
 
   formulario.reset();
 });
+
