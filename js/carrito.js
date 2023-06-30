@@ -131,23 +131,26 @@ function comprarCarrito() {
   contenedorCarritoComprado.classList.remove("disabled")
 
 }
-const formulario = document.querySelector("#miFormulario");
-const datosMostrados = document.querySelector("#datosMostrados");
 
-formulario.addEventListener("submit", function(e) {
-  e.preventDefault(); 
+document.getElementById("miFormulario").addEventListener("submit", function(event) {
+  event.preventDefault();
 
+  var nombre = document.getElementById("nombre").value;
+  var email = document.getElementById("email").value;
+  var mensaje = document.getElementById("mensaje").value;
+  
 
-  const nombre = document.querySelector("#nombre").value;
-  const email = document.querySelector("#email").value;
+  var datosMostrados = document.getElementById("datosMostrados");
+  var datosParrafo = document.createElement("p");
+  datosParrafo.textContent = "Nombre: " + nombre + ", Email: " + email + ", Mensaje: " + mensaje;
+  
 
- 
-  datosMostrados.innerHTML = `
-    <p>Nombre: ${nombre}</p>
-    <p>Email: ${email}</p>
-  `;
+  datosMostrados.appendChild(datosParrafo);
+  
 
-
-  formulario.reset();
+  document.getElementById("nombre").value = "";
+  document.getElementById("email").value = "";
+  document.getElementById("mensaje").value = "";
 });
+
 

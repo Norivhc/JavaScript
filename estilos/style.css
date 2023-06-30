@@ -276,12 +276,25 @@ main {
   display: none;
 }
 
+.title-contact {
+  color: var(--clr-main);
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
 form {
   max-width: 400px;
   margin: 0 auto;
   background-color: var(--clr-white);
   border-radius: 2rem;
   padding: 2rem;
+}
+textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid var(--clr-beige);
+  border-radius: 0.5rem;
+  resize: vertical;
 }
 
 form label {
